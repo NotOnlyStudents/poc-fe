@@ -1,13 +1,16 @@
+import { useState, useEffect } from 'react';
 import Head from 'next/head'
 import Link from 'next/link'
-// import Date from '../components/date'
 import Layout, { siteTitle } from 'components/layout'
 import utilStyles from 'styles/utils.module.css'
-// import { getSortedPostsData } from '../lib/posts'
-import { GetStaticProps } from 'next'
-import Amplify from "@aws-amplify/core";
-import Auth from "@aws-amplify/auth";
-import { AmplifySignIn, withAuthenticator } from '@aws-amplify/ui-react'
+import { GetServerSideProps } from "next"
+import Amplify from "@aws-amplify/core"
+import Auth, { CognitoUser } from "@aws-amplify/auth"
+import { withSSRContext } from 'aws-amplify'
+import { AmplifyAuthenticator, AmplifySignUp, AmplifySignIn, AmplifySignOut } from '@aws-amplify/ui-react'
+import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components'
+
+import CheckoutButton from "components/CheckoutButton"
 
 Amplify.configure({
   Auth: {
@@ -31,8 +34,9 @@ Amplify.configure({
       // transmission requires a secure protocol (https).
       // The cookie should be set to secure in production.
       secure: false,
-    },
-  }
+    }
+  },
+  ssr: true
 });
 
 Auth.configure({
@@ -45,18 +49,21 @@ Auth.configure({
     // Where users are sent after they sign out.
     redirectSignOut: process.env.REDIRECT_SIGN_OUT,
     responseType: "token"
-  },
+  }
 });
 
-export default function Home({
-  allPostsData
-}: {
-  allPostsData: {
-    date: string
-    title: string
-    id: string
-  }[]
-}) {
+export default function Home() {
+  const [authState, setAuthState] = useState<AuthState>();
+  const [user, setUser] = useState<object | undefined>();
+
+  useEffect(() => {
+    return onAuthUIStateChange((nextAuthState, authData) => {
+      console.log(nextAuthState, authData);
+      setAuthState(nextAuthState);
+      setUser(authData);
+    });
+  }, []);
+
   return (
     <Layout>
       <Head>
@@ -71,36 +78,48 @@ export default function Home({
               <p>Quantity: 2</p>
             </div>
           </li>
-        </ul>
-        <Link href={'/purchase'}>
-          <a>Purchase</a>
-        </Link>
+        </ul>        
+        { authState === AuthState.SignedIn && user ? (
+          <>
+            <Link href={"/checkout"}>
+              <a>Checkout</a>
+            </Link>
+            <AmplifySignOut />
+          </>
+        ) : (
+            <AmplifyAuthenticator usernameAlias={"email"}>
+              <AmplifySignUp
+                slot="sign-up"
+                usernameAlias="email"
+                formFields={[
+                  { type: "email" },
+                  { type: "password" }
+                ]}
+              />
+              <AmplifySignIn slot="sign-in" usernameAlias="email" />
+            </AmplifyAuthenticator>
+        )}
       </section>
-      {/* <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
-        <h2 className={utilStyles.headingLg}>Blog</h2> */}
-        {/* <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title }) => (
-            <li className={utilStyles.listItem} key={id}>
-              <Link href={`/posts/${id}`}>
-                <a>{title}</a>
-              </Link>
-              <br /> */}
-              {/* <small className={utilStyles.lightText}>
-                <Date dateString={date} />
-              </small> */}
-            {/* </li>
-          ))}
-        </ul> */}
-      {/* </section> */}
     </Layout>
   )
 }
 
-// export const getStaticProps: GetStaticProps = async () => {
-//   const allPostsData = getSortedPostsData()
-//   return {
-//     props: {
-//       allPostsData
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const { Auth } = withSSRContext(context)
+//   try {
+//     const user: CognitoUser = await Auth.currentAuthenticatedUser();
+
+//     return {
+//       props: {
+//         authenticated: true,
+//         username: user.getUsername()
+//       }
+//     }
+//   } catch (err) {
+//     return {
+//       props: {
+//         authenticated: false
+//       }
 //     }
 //   }
 // }
