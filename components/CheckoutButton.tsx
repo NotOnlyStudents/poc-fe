@@ -3,8 +3,8 @@ import { loadStripe } from '@stripe/stripe-js'
 
 const stripePromise = loadStripe("pk_test_51IHqhuEKthtArr3S4MYSAYFEPiFlioccyA4SjUNArmmdSmK7B05UnMdsNKIu0TCRXADZLVmjEUlqKRIR4D2SWtJ700PVmechEl");
 
-async function CheckoutButton() {
-    // const handleClick = async () => {
+function CheckoutButton() {
+    const handleClick = async () => {
         // Get Stripe.js instance
         const stripe = await stripePromise;
 
@@ -23,13 +23,12 @@ async function CheckoutButton() {
             // error, display the localized error message to your customer
             // using `result.error.message`.
         }
-    // };
+    };
 
     return (
-        <></>
-        // <button role="link" onClick={handleClick}>
-        //     Checkout
-        // </button>
+        <a onClick={handleClick}>
+            Checkout
+        </a>
     );
 };
 
