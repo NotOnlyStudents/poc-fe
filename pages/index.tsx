@@ -3,17 +3,22 @@ import Link from 'next/link'
 // import Date from '../components/date'
 import Layout, { siteTitle } from 'components/layout'
 import "isomorphic-unfetch";
+import { privateEncrypt } from 'crypto';
 
 
-async function getRequest()
-{
-  var url="http://localhost:3000/dev/products"
+// This gets called on every request
+export async function getServerSideProps() {
+  // Fetch data from external API
+  const res = await fetch("http://localhost:3000/dev/products")
+  const data = await res.json()
 
-  const response = await fetch(url);
-  const data = await response.json();
-  return data;
+  // Pass data to the page via props
+  return { props: { data } }
 }
 
+
+
+/*
 function getProducts()
 {
 
@@ -32,15 +37,15 @@ function getProducts()
     }
   })
 
-}
+}**/
 
 
 async function postData(url = '', data = {}) {
-  url="http://localhost:3000/dev/product/2";
+  url="http://localhost:3000/dev/product/3";
   data = {
-    name : "Cellulare",
-    description : "Cellulare",
-    price: 30,
+    name : "Scarpe",
+    description : "Scarpe Spaziose",
+    price: 40,
   }
   // Default options are marked with *
   const response = await fetch(url, {
@@ -60,7 +65,10 @@ async function postData(url = '', data = {}) {
 }
 
 
-export default function Home(){
+//DA FARE STATIC GENERATION
+export default function Home({data}){
+  postData();
+  //console.log(data.products[0]);
  /* 
   var resp = {  
     userId: 1,
@@ -70,8 +78,7 @@ export default function Home(){
 };
 resp.userId=22;
 var x = "";**/
-  getProducts();
- // postData();
+ //postData();
 
   return (  
   <Layout>
@@ -82,8 +89,7 @@ var x = "";**/
           <a>Shopping Cart</a>
         </Link>
         <div id ="productsList">
-
-
         </div>
+        {print() }
 </Layout>)
   } 

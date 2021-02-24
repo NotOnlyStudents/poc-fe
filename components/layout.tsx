@@ -25,7 +25,7 @@ export default function Layout({children}: {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <header>
-        <h1>{name}</h1>
+        <img src="./images/logoEmporioLambda.png" />
       </header>
       <main>{children}</main>
     </div>
