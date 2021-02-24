@@ -41,10 +41,10 @@ function getProducts()
 
 
 async function postData(url = '', data = {}) {
-  url="http://localhost:3000/dev/product/3";
+  url="http://localhost:3000/dev/product/2";
   data = {
-    name : "Scarpe",
-    description : "Scarpe Spaziose",
+    name : "Frigorifero",
+    description : "Frigorifero Spazioso",
     price: 40,
   }
   // Default options are marked with *
@@ -88,8 +88,5 @@ var x = "";**/
       <Link href="/cart">
           <a>Shopping Cart</a>
         </Link>
-        <div id ="productsList">
-        </div>
-        {print() }
 </Layout>)
   } 
