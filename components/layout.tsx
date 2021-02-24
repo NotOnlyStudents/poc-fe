@@ -1,10 +1,11 @@
 import Head from 'next/head'
 
-
 const name = 'EmporioLambda'
 export const siteTitle = 'EmporioLambda'
 
-export default function Layout({children}: {
+export default function Layout({
+  children
+}: {
   children: React.ReactNode
 }) {
   return (

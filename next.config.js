@@ -6,12 +6,13 @@ module.exports = (phase) => {
       return {
         // environment varibales for local development
         env: {
-          IDP_DOMAIN: "emporiolambda.auth.eu-west-1.amazoncognito.com",
-          USER_POOL_ID: "eu-west-1_g3tY2ay6y",
-          USER_POOL_CLIENT_ID: "2p5i1sksdg7res1s6hrdo5ckk8",
-          REDIRECT_SIGN_IN: "http://localhost:3000/token",
-          REDIRECT_SIGN_OUT: "http://localhost:3000/",
-          AUTH_COOKIE_DOMAIN: "localhost",
+          IDP_DOMAIN: "https://empriolambda.auth.eu-west-1.amazoncognito.com",
+          STRIPE_PUBLIC_KEY: "pk_test_51IHqhuEKthtArr3S4MYSAYFEPiFlioccyA4SjUNArmmdSmK7B05UnMdsNKIu0TCRXADZLVmjEUlqKRIR4D2SWtJ700PVmechEl",
+          USER_POOL_ID: "eu-west-1_GNvsrGORS",
+          USER_POOL_CLIENT_ID: "51v3gjhdbtq2mt0m1fb1asniae",
+          REDIRECT_SIGN_IN: "http://localhost:8080/purchase",
+          REDIRECT_SIGN_OUT: "http://localhost:8080/",
+          AUTH_COOKIE_DOMAIN: "localhost"
         },
       };
     default:
@@ -23,7 +24,7 @@ module.exports = (phase) => {
           USER_POOL_CLIENT_ID: "66hpug32jqnemqg59bha64pvds",
           REDIRECT_SIGN_IN: "https://aws-cognito-next-example-app.now.sh/token",
           REDIRECT_SIGN_OUT: "https://aws-cognito-next-example-app.now.sh/",
-          AUTH_COOKIE_DOMAIN: "aws-cognito-next-example-app.now.sh",
+          AUTH_COOKIE_DOMAIN: "aws-cognito-next-example-app.now.sh"
         },
       };
   }

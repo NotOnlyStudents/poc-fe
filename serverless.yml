@@ -1,4 +1,9 @@
 # serverless.yml
 
 myApp:
- component: "@sls-next/serverless-component@1.18.0"
+  component: "@sls-next/serverless-component@1.18.0"
+  inputs:
+    cloudfront:
+      distributionId: E29JAALEMHVGZM
+    bucketName: poc-fe-nos-dev
+    bucketRegion: eu-west-1

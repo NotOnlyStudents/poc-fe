@@ -12,6 +12,6 @@ function Purchase() {
       <h1 className={utilStyles.heading2Xl}>Purchased!</h1>
     </Layout>
   )
-}
+};
 
-export default withAuthenticator(Purchase);
+export default Purchase;
