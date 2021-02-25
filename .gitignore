@@ -15,6 +15,9 @@
 # serverless cache
 .serverless*
 
+# VScode
+.vscode
+
 # production
 /build
 
