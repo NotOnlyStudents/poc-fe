@@ -2,3 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --amplify-primary-color: rgba(99, 102, 241, 1);
+  --amplify-primary-tint: #0000FF; 
+}
