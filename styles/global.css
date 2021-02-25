@@ -5,4 +5,5 @@
 :root {
   --amplify-primary-color: rgba(99, 102, 241, 1);
   --amplify-primary-tint: #0000FF; 
+  --amplify-primary-shade: rgba(79, 70, 229, 1);
 }

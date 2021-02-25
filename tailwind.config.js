@@ -12,5 +12,13 @@ module.exports = {
       red: colors.rose,
       yellow: colors.amber,
     }
+  },
+  variants: {
+    extend: {
+      backgroundColor: [
+        'active',
+        'hover'
+      ]
+    }
   }
 }

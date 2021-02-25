@@ -55,7 +55,7 @@ export default function Home({
   return (
     <Layout>
       <Head>
-        <title>Chart - {siteTitle}</title>
+        <title>Cart - {siteTitle}</title>
       </Head>
       <div className="bg-gray-100">
         <div className="container mx-auto mt-10">
@@ -105,7 +105,7 @@ export default function Home({
                   </>
                 ) : (
                   <Link href="/login">
-                    <button className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
+                      <button className="bg-indigo-500 font-semibold hover:bg-opacity-80 active:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
                       Login to checkout
                     </button>
                   </Link>

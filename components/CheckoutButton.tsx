@@ -34,7 +34,7 @@ export default function CheckoutButton() {
 
     return (
         <button 
-            className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"
+            className="bg-indigo-500 font-semibold hover:bg-opacity-80 active:bg-indigo-600 py-3 text-sm text-white uppercase w-full"
             onClick={handleClick}
         >
             Checkout
