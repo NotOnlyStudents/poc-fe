@@ -3,6 +3,7 @@
 myApp:
   component: "@sls-next/serverless-component@1.18.0"
   inputs:
+    domain: ["shop", "annoiato.net"]
     cloudfront:
       distributionId: E29JAALEMHVGZM
     bucketName: poc-fe-nos-dev
