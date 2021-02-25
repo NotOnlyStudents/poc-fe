@@ -9,6 +9,7 @@ export default function Layout({
   children: React.ReactNode
 }) {
   return (
+    <>
     <div>
       <Head>
         <link rel="icon" href="/favicon.ico" />
@@ -28,7 +29,8 @@ export default function Layout({
       <header>
         <img src="./images/logoEmporioLambda.png" />
       </header>
-      <main>{children}</main>
     </div>
+      {children}
+      </>
   )
 }
