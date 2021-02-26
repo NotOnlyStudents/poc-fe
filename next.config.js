@@ -21,12 +21,13 @@ module.exports = (phase) => {
         // environment varibales for production
         env: {
           IDP_DOMAIN: "https://empriolambda.auth.eu-west-1.amazoncognito.com",
+          STRIPE_PUBLIC_KEY: "pk_test_51IHqhuEKthtArr3S4MYSAYFEPiFlioccyA4SjUNArmmdSmK7B05UnMdsNKIu0TCRXADZLVmjEUlqKRIR4D2SWtJ700PVmechEl",
           USER_POOL_ID: "eu-west-1_GNvsrGORS",
           USER_POOL_CLIENT_ID: "51v3gjhdbtq2mt0m1fb1asniae",
           REDIRECT_SIGN_IN: "https://shop.annoiato.net/",
           REDIRECT_SIGN_OUT: "https://shop.annoiato.net/",
           API_BASE_URL: "https://api.annoiato.net",
-          AUTH_COOKIE_DOMAIN: "aws-cognito-next-example-app.now.sh"
+          AUTH_COOKIE_DOMAIN: "shop.annoiato.net"
         },
       };
   }
