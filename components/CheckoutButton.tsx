@@ -4,13 +4,13 @@ import "styles/utils.module.css"
 
 const stripePromise = loadStripe("pk_test_51IHqhuEKthtArr3S4MYSAYFEPiFlioccyA4SjUNArmmdSmK7B05UnMdsNKIu0TCRXADZLVmjEUlqKRIR4D2SWtJ700PVmechEl");
 
-export default function CheckoutButton() {
+export default function CheckoutButton({ cartID }: { cartID: string }) {
     const handleClick = async () => {
         // Get Stripe.js instance
         const stripe = await stripePromise;
 
         // Call your backend to create the Checkout Session
-        const response = await fetch(`${process.env.API_BASE_URL}/dev/create-checkout-session/1`, { method: 'POST' });
+        const response = await fetch(`${process.env.API_BASE_URL}/dev/create-checkout-session/${cartID}`, { method: 'POST' });
 
         const session = await response.json();
 
