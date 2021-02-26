@@ -25,7 +25,7 @@ module.exports = (phase) => {
           USER_POOL_CLIENT_ID: "51v3gjhdbtq2mt0m1fb1asniae",
           REDIRECT_SIGN_IN: "https://shop.annoiato.net/",
           REDIRECT_SIGN_OUT: "https://shop.annoiato.net/",
-          API_BASE_URL: "https://api.annoiato.net/",
+          API_BASE_URL: "https://api.annoiato.net",
           AUTH_COOKIE_DOMAIN: "aws-cognito-next-example-app.now.sh"
         },
       };
