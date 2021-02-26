@@ -12,8 +12,9 @@
 /.next/
 /out/
 
-# serverless cache
-.serverless*
+# no hidden directories
+.*
+!/.gitignore
 
 # production
 /build
