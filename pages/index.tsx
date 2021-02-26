@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { GetServerSideProps } from "next"
 import { CognitoUser } from "@aws-amplify/auth"
 import { withSSRContext } from 'aws-amplify'
@@ -17,21 +17,23 @@ import { useCart } from "lib/useCart"
 
 export default function Home({
   _authState,
-  _user
+  _username
 }: {
   _authState: AuthState,
-  _user: string | undefined
+  _username: string | undefined
 }) {
-  const { authState, user, setAuthState, setUser} = useAuthContext();
-  const { cart } = useCart(1);
+  const { authState, username, setAuthState, setUsername} = useAuthContext();
+  const { cart } = useCart(username);
 
   useEffect(() => {
     setAuthState(_authState);
-    setUser(_user ? JSON.parse(_user) : undefined);
+    setUsername(_username);
 
-    return onAuthUIStateChange((nextAuthState: AuthState, authData: CognitoUser) => {
-      setAuthState(nextAuthState);
-      setUser(authData);
+    return onAuthUIStateChange((nextAuthState: AuthState) => {      
+      if (nextAuthState === AuthState.SignedOut) {
+        setAuthState(nextAuthState);
+        setUsername(undefined);
+      }
     });
   }, []);
 
@@ -98,13 +100,13 @@ export default function Home({
                   <span>Total cost</span>
                   <span>{cart ? priceFormatter(priceSum(cart)) : null}</span>
                 </div>
-                {authState === AuthState.SignedIn && user ? (
+                {authState === AuthState.SignedIn && username ? (
                   <>
-                    <CheckoutButton />
+                    <CheckoutButton cartID={username} />
                     <AmplifySignOut />
                   </>
                 ) : (
-                  <Link href="/login">
+                  <Link href="/authenticator">
                       <button className="bg-indigo-500 font-semibold hover:bg-opacity-80 active:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
                       Login to checkout
                     </button>
@@ -128,7 +130,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
       props: {
         _authState: AuthState.SignedIn,
-        _user: JSON.stringify(user)
+        _username: user.getUsername()
       }
     }
   } catch (err) {
