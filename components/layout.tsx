@@ -1,6 +1,4 @@
 import Head from 'next/head'
-import styles from './layout.module.css'
-import utilStyles from 'styles/utils.module.css'
 
 const name = 'EmporioLambda'
 export const siteTitle = 'EmporioLambda'
@@ -11,12 +9,13 @@ export default function Layout({
   children: React.ReactNode
 }) {
   return (
-    <div className={styles.container}>
+    <>
+    <div>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"
-          content="Learn how to build a personal website using Next.js"
+          content="Emporio Lambda"
         />
         <meta
           property="og:image"
@@ -27,10 +26,11 @@ export default function Layout({
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-      <header className={styles.header}>
-        <h1 className={utilStyles.heading2Xl}>{name}</h1>
+      <header>
+        <img src="./images/logoEmporioLambda.png" />
       </header>
-      <main className={styles.container}>{children}</main>
     </div>
+      {children}
+      </>
   )
 }

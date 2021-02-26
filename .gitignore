@@ -16,6 +16,9 @@
 .*
 !/.gitignore
 
+# VScode
+.vscode
+
 # production
 /build
 
