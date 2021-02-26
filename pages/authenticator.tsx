@@ -1,21 +1,21 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { AmplifyAuthenticator, AmplifySignUp, AmplifySignIn, AmplifyFederatedButtons } from '@aws-amplify/ui-react'
+import { AmplifyAuthenticator, AmplifySignUp, AmplifySignIn } from '@aws-amplify/ui-react'
 import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components'
 import { CognitoUser } from "@aws-amplify/auth"
 
 import { useAuthContext } from "context/authContext";
 
-function Login() {
-    const { setAuthState, setUser } = useAuthContext();
+function Authenticator() {
+    const { setAuthState, setUsername } = useAuthContext();
     const router = useRouter()
     
     useEffect(() => {
-        return onAuthUIStateChange((nextAuthState: AuthState, authData: CognitoUser) => {
-            setAuthState(nextAuthState);
-            setUser(authData);
-
+        return onAuthUIStateChange((nextAuthState: AuthState, authData: CognitoUser) => {            
             if (nextAuthState === AuthState.SignedIn) {
+                setAuthState(nextAuthState);
+                setUsername(authData.getUsername());
+                
                 router.replace('/');
             }
         });
@@ -39,4 +39,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default Authenticator;

@@ -5,23 +5,23 @@ import { AuthState } from '@aws-amplify/ui-components'
 
 interface AuthContextProps {
     readonly authState: AuthState,
-    readonly user: CognitoUser | undefined,
+    readonly username: string | undefined,
     setAuthState: (newAuthState: AuthState) => void,
-    setUser: (newUser: CognitoUser | undefined) => void
+    setUsername: (newUsername: string | undefined) => void
 };
 
 export const AuthContext = createContext<Partial<AuthContextProps>>({});
 
 export function AuthContextProvider({ children }) {
     const [authState, setAuthState] = useState<AuthState>();
-    const [user, setUser] = useState<CognitoUser | undefined>();
+    const [username, setUsername] = useState<string | undefined>();
 
     return (
         <AuthContext.Provider value={{
             authState,
             setAuthState,
-            user,
-            setUser
+            username,
+            setUsername
         }} >            
             {children}
         </AuthContext.Provider>
