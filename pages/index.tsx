@@ -47,11 +47,11 @@ export default function Home({
 
   const priceFormatter = (price: number): string => {
     const priceString = price.toString();
-    return "€".concat(
+    return price === 0 ? "€0.00" : "€".concat(
       priceString.substring(0, priceString.length - 2),
       ".",
       priceString.substr(priceString.length - 2, 2)
-    );
+    ); 
   }
 
   return (
@@ -59,15 +59,15 @@ export default function Home({
       <Head>
         <title>Cart - {siteTitle}</title>
       </Head>
-      <div className="bg-gray-100">
-        <div className="container mx-auto mt-10">
-          <div className="flex shadow-md my-10">
-            <div id="main" className="w-3/4 bg-white px-10 py-10">
-              <div className="flex justify-between border-b pb-8">
+      <div>
+        <div className="container md:mx-auto mt-10">
+          <div className="md:flex rounded-b-xl md:rounded-xl shadow-lg border my-10">
+            <div className="md:w-3/4 md:rounded-xl px-3 md:px-10 py-5 md:py-10">
+              <div className="flex justify-between border-b pb-5 md:pb-8">
                 <h1 className="font-semibold text-2xl">Shopping Cart</h1>
-                <h2 className="font-semibold text-2xl">{cart ? cart.products.length : null} Items</h2>
+                <h2 className="font-semibold text-2xl">{cart ? cart.products.length : 0} Items</h2>
               </div>
-              <div className="flex mt-10 mb-5">
+              <div className="flex mt-5 md:mt-10 mb-5">
                 <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
                 <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Quantity</h3>
                 <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Price</h3>
@@ -81,7 +81,11 @@ export default function Home({
                     priceFormatter={priceFormatter}
                   />
                 })
-              ) : null}
+              ) : (
+                <h2 className="font-semibold mt:10 md:mt-20 text-center text-2xl text-gray-300">
+                  Empty cart
+                </h2>
+              )}
               {/* <a href="#" className="flex font-semibold text-indigo-600 text-sm mt-10">
                 <svg className="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512">
                   <path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" />
@@ -89,16 +93,16 @@ export default function Home({
                 Continue Shopping
               </a> */}
             </div>
-            <div id="summary" className="w-1/4 px-8 py-10">
-              <h1 className="font-semibold text-2xl border-b pb-8">Order Summary</h1>
-              <div className="flex justify-between mt-10 mb-5">
-                <span className="font-semibold text-sm uppercase">Items {cart ? cart.products.length : null}</span>
-                <span className="font-semibold text-sm">{cart ? priceFormatter(priceSum(cart)) : null}</span>
+            <div id="summary" className="md:w-1/4 rounded-b-xl md:rounded-r-xl px-3 md:px-8 py-5 md:py-10 bg-gray-100">
+              <h1 className="font-semibold text-2xl border-b pb-5 md:pb-8">Order Summary</h1>
+              <div className="flex justify-between mt-3 md:mt-10 mb-3 md:mb-5">
+                <span className="font-semibold text-sm uppercase">Items {cart ? cart.products.length : 0}</span>
+                <span className="font-semibold text-sm">{cart ? priceFormatter(priceSum(cart)) : priceFormatter(0)}</span>
               </div>
-              <div className="border-t mt-8">
+              <div className="border-t md:mt-8">
                 <div className="flex font-semibold justify-between py-6 text-sm uppercase">
                   <span>Total cost</span>
-                  <span>{cart ? priceFormatter(priceSum(cart)) : null}</span>
+                  <span>{cart ? priceFormatter(priceSum(cart)) : priceFormatter(0)}</span>
                 </div>
                 {authState === AuthState.SignedIn && username ? (
                   <>
@@ -107,7 +111,7 @@ export default function Home({
                   </>
                 ) : (
                   <Link href="/authenticator">
-                      <button className="bg-indigo-500 font-semibold hover:bg-opacity-80 active:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
+                    <button className="bg-indigo-500 font-semibold hover:bg-opacity-80 active:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
                       Login to checkout
                     </button>
                   </Link>
