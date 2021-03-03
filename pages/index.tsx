@@ -75,11 +75,13 @@ export default function Home({
               </div>
               {cart ? (
                 cart.products.map((product: Product) => {
-                  return <CartItem 
-                    key={product.name}
-                    product={product}
-                    priceFormatter={priceFormatter}
-                  />
+                  return (
+                    <CartItem 
+                      key={product.name}
+                      product={product}
+                      priceFormatter={priceFormatter}
+                    />
+                  )
                 })
               ) : (
                 <h2 className="font-semibold mt:10 md:mt-20 text-center text-2xl text-gray-300">
