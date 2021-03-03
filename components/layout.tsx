@@ -10,7 +10,6 @@ export default function Layout({
 }) {
   return (
     <>
-    <div>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
@@ -29,7 +28,6 @@ export default function Layout({
       <header>
         <img src="./images/logoEmporioLambda.png" />
       </header>
-    </div>
       {children}
       </>
   )
